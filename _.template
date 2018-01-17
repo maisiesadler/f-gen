@@ -1,0 +1,18 @@
+export interface --U {
+    readonly persistToLocal: boolean;
+    readonly persistToSession: boolean;
+}
+
+export class Persisted--U {
+    public static local(--L: --U): any {
+        return {
+            persistToLocal: --U.persistToLocal
+        };
+    }
+
+    public static session(--L: --U): any {
+        return {
+            persistToSession: --U.persistToSession
+        };
+    }
+}
