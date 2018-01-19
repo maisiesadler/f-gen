@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+const read = (templateLocation) => {
+    return fs.readFileSync(templateLocation, "utf8");
+};
+
 const capitalise = (s) => {
     return s.charAt(0).toUpperCase() + s.substring(1);
 }
@@ -29,3 +35,4 @@ const replace = (template, name) => {
 }
 
 exports.replace = replace;
+exports.read = read;
