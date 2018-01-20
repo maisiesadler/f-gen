@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const write = (fileLocation, contents) => {
-    const rs = fs.createWriteStream(fileLocation);
+const write = (fileName, contents) => {
+    const rs = fs.createWriteStream(fileName);
     rs.write(contents);
     rs.close();
 };

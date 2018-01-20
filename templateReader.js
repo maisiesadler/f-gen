@@ -14,6 +14,7 @@ const lowercase = (s) => {
 
 const upper = '--U';
 const lower = '--L';
+const regular = '--N';
 
 const convert = (original) => {
     const parts = original.split('-');
@@ -28,9 +29,10 @@ const replaceEveryInstanceOf = (original, replace, replaceWith) => {
 }
 
 const replace = (template, name) => {
-    name = convert(name);
-    template = replaceEveryInstanceOf(template, upper, name);
-    template = replaceEveryInstanceOf(template, lower, lowercase(name));
+    const cname = convert(name);
+    template = replaceEveryInstanceOf(template, upper, cname);
+    template = replaceEveryInstanceOf(template, regular, name);
+    template = replaceEveryInstanceOf(template, lower, lowercase(cname));
     return template;
 }
 

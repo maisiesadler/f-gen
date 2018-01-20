@@ -1,25 +1,17 @@
 #!/usr/bin/env node
 const program = require('commander');
 // Require logic.js file and extract controller functions using JS destructuring assignment
-const templateReader = require('./templateReader');
+const coordinator = require('./coordinator');
+const configReader = require('./configReader');
 const write = require('./write');
-const templateLocation = 'f-gen/output/_.template';
 
-let template = templateReader.read(templateLocation);
+const createFile = (location, name) => {
+    coordinator.go(location, name);
+};
 
-const createFile = (fileLocation) => {
-    if (templateLocation === fileLocation) {
-        throw new Error('cannot write to template location');
-    }
-    const p = fileLocation.split('\\');
-    let name = p[p.length - 1];
-    try {
-        template = templateReader.replace(template, name);
-        write.write(fileLocation, template);
-
-    } catch (e) {
-        console.log(e);
-    }
+const createConfig = () => {
+    const config = configReader.createExampleConfig();
+    write.write('config.json', JSON.stringify(config));
 };
 
 program
@@ -27,9 +19,15 @@ program
     .description('File generator');
 
 program
-    .command('createFile <location>')
+    .command('createFile <location> <name>')
     .alias('cf')
     .description('Create File')
-    .action(name => createFile(name));
+    .action((location, name) => createFile(location, name));
+
+program
+    .command('createConfig')
+    .alias('cc')
+    .description('Create config')
+    .action(() => createConfig());
 
 program.parse(process.argv);

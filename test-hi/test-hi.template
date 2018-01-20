@@ -1,0 +1,18 @@
+export interface TestHi {
+    readonly persistToLocal: boolean;
+    readonly persistToSession: boolean;
+}
+
+export class PersistedTestHi {
+    public static local(testHi: TestHi): any {
+        return {
+            persistToLocal: TestHi.persistToLocal
+        };
+    }
+
+    public static session(testHi: TestHi): any {
+        return {
+            persistToSession: TestHi.persistToSession
+        };
+    }
+}
