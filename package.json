@@ -1,6 +1,6 @@
 {
-  "name": "f-gen",
-  "version": "1.0.0",
+  "name": "clifgen",
+  "version": "1.0.1",
   "description": "File Generator",
   "main": "app.js",
   "preferGlobal": true,
