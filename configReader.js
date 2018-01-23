@@ -4,12 +4,28 @@ const read = (configLocation) => {
     return JSON.parse(fs.readFileSync(configLocation, "utf8"));
 };
 
-const validateConfig = (config) => {
-    if (config.template) {
-        const exists = fs.existsSync(config.template);
-        if (!exists) throw new Error('output file ' + config.template + ' does not exist!');
+const getValidConfigs = (config) => {
+    const validConfigs = {};
+    const keys = Object.keys(config);
+    keys.forEach(key => {
+        const c = config[key];
+        const x = getValidConfigOrNull(c);
+        if (x !== null) {
+            validConfigs[key] = x;
+        } else {
+            console.log(`config ${key} is not valid`);
+        }
+    });
+    return validConfigs;
+};
+
+const getValidConfigOrNull = (config) => {
+    if (config.location) {
+        const exists = fs.existsSync(config.location);
+        if (!exists) return null;
+        // if (!exists) throw new Error('output file ' + config.location + ' does not exist!');
     }
-    if (!config.extensions){
+    if (!config.extensions) {
         config.extensions = ['*.js'];
     }
     return config;
@@ -17,12 +33,12 @@ const validateConfig = (config) => {
 
 exports.readAndValidate = (location) => {
     const config = read(location);
-    return validateConfig(config);
+    return getValidConfigs(config);
 };
 
 exports.createExampleConfig = () => {
     return {
-        template: 'folder-location',
+        location: 'folder-location',
         extensions: ['*.js']
     };
 };

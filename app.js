@@ -19,10 +19,10 @@ program
     .description('File generator');
 
 program
-    .command('createFile <location> <name>')
+    .command('createFile <template> <name>')
     .alias('cf')
     .description('Create File')
-    .action((location, name) => createFile(location, name));
+    .action((template, name) => createFile(template, name));
 
 program
     .command('createConfig')
